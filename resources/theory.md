@@ -108,7 +108,7 @@ HandLandmarkerResult(handedness=[[Category(index=0, score=0.947941780090332, dis
 
 Индексы расположены в порядке как на картинке
 
-
+![](https://github.com/vv73/HandsMediapipe/raw/master/_common_res/indexes.png)
 
 Перепишем программу для видео и будем следить только за указательным пальцем. 
 
