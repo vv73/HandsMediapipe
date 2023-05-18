@@ -46,7 +46,7 @@
 ```
 Запустим эту программу  и получим окно с изображением руки, на которое наложены ключевые точки слово "Left" - детектировалась левая рука.
 
-![enter image description here](https://github.com/vv73/HandsMediapipe/raw/master/resources/annotated_hand.png)
+![enter image description here](https://github.com/vv73/HandsMediapipe/raw/master/_te/annotated_hand.png)
 
 В этой программе много строк, но они просты для понимания, если не вдаваться в детали.
 
