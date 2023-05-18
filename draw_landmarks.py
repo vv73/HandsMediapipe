@@ -13,7 +13,7 @@ HANDEDNESS_TEXT_COLOR = (88, 205, 54) # vibrant green
 def draw_landmarks_on_image(rgb_image, detection_result):
   hand_landmarks_list = detection_result.hand_landmarks
   handedness_list = detection_result.handedness
-  annotated_image = np.copy(rgb_image)
+  annotated_image = np.copy(rgb_image.numpy_view())
 
   # Loop through the detected hands to visualize.
   for idx in range(len(hand_landmarks_list)):
