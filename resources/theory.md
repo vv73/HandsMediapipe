@@ -129,7 +129,7 @@ HandLandmarkerResult(handedness=[[Category(index=0, score=0.947941780090332, dis
 ...
 ```
 
-![](https://github.com/vv73/HandsMediapipe/raw/master/_common_res/)
+![](https://github.com/vv73/HandsMediapipe/raw/master/_common_res/mp.gif)
 
 Полный код находится в файле `example.py`. 
 
