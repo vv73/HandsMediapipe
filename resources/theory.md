@@ -29,7 +29,7 @@
 14: detector = vision.HandLandmarker.create_from_options(options)
 15: 
 16: # 2. Подготовливаем изображение
-17: cv_mat = cv2.cvtColor(cv2.imread("pics/hand.jpg"), cv2.COLOR_RGB2BGR)
+17: cv_mat = cv2.cvtColor(cv2.imread("pics/hand.jpg"), cv2.COLOR_BGR2RGB)
 18: 
 19: # Перводим его в формат Mediapipe-изображений
 20: image = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv_mat)
@@ -56,9 +56,9 @@
 12: options = vision.HandLandmarkerOptions(base_options=base_options,
 13:                                        num_hands=2)
 ```
-Мы их разберем позже, а пока скажем, что это настройки (стандартные, которым передается модель, которая и распознает ладони и определяет их ключевые точки) по которым строится в строке 14 объект-распознаватель.
+Это настройки (стандартные, которым передается модель, которая и распознает ладони и определяет их ключевые точки) по которым строится в строке 14 объект-распознаватель.
 
-Функция `draw_landmarks_on_image()` в 14 строке вынесена в отдельный файл, ее мы тоже разберем позже.
+Функция `draw_landmarks_on_image()` в 14 строке вынесена в отдельный файл, она не очень сложная, но объемная.
 
 # Что такое MediaPipe и зачем
 
@@ -86,7 +86,7 @@ HandLandmarkerResult(handedness=[[Category(index=0, score=0.947941780090332, dis
 ```
 Вывод выглядит устрашающим, но это только на первый взгляд.
 
-Это объект. Сколько в нем подобъектов, именованных списков? Всего три: `handedness`, `hand_landmarks`, и  ` hand_world_landmarks`. Это информация о руках (в нашем выводе обнаружилась левая), и о контрольных точках. 
+Это объект. Сколько в нем подобъектов? Всего три: `handedness`, `hand_landmarks`, и  ` hand_world_landmarks`. Это информация о руках (в нашем выводе обнаружилась левая), и о контрольных точках. 
 
 `handedness` - дает координаты относительно картинки, например, x = 0.5, y = 0.5 - означает, что точка в центре изображения
 
@@ -104,11 +104,38 @@ HandLandmarkerResult(handedness=[[Category(index=0, score=0.947941780090332, dis
 
 ## Ключевые точки
 
-Индексы точек
+Индексы точек - самое важное!
 
 Индексы расположены в порядке как на картинке
 
 ![](https://github.com/vv73/HandsMediapipe/raw/master/_common_res/indexes.png)
 
-Перепишем программу для видео и будем следить только за указательным пальцем. 
+Перепишем программу для видео и будем следить только за указательным пальцем. Верхняя фаланга большого пальца имеет индекс 8.
 
+```python
+ ...
+    if len(detection_result.hand_landmarks) > 0:
+        # нас интересует только подушечка указательного пальца (индекс 8)
+        # нужно умножить координаты на размеры картинки
+        x_tip = int(detection_result.hand_landmarks[0][8].x *
+                    image.width)
+        y_tip = int(detection_result.hand_landmarks[0][8].y *
+                    image.height)
+        # рисуем кружок
+        cv2.circle(frame, (x_tip, y_tip), 10, (255, 0, 0), -1)
+    # переводим обратно в BGR и показываем
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    cv2.imshow("Example", frame)
+...
+```
+
+![](https://github.com/vv73/HandsMediapipe/raw/master/_common_res/)
+
+Полный код находится в файле `example.py`. 
+
+# Итоги занятия
+
+На этом занятии мы научились работать с модулем Hands библиотеки Mediapipe, а именно:
+
+* Понимать, есть ли на изображении руки и сколько их
+* Следить за определенными частями ладони 

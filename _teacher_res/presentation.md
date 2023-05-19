@@ -18,7 +18,12 @@
 
 Cлайд №9 - Решение задачи 2
 ```
+ ...  
  detection_result = detector.detect(image)
  result = False
  if len(detection_result.handedness) > 0:
+ ...
 ```
+Слайд №10 - Подведение итогов
+
+Что изучили, как изученное можно применить в проектах?

@@ -14,7 +14,7 @@ options = vision.HandLandmarkerOptions(base_options=base_options,
 detector = vision.HandLandmarker.create_from_options(options)
 
 # 2. Подготовливаем изображение
-cv_mat = cv2.cvtColor(cv2.imread("pics/hand.jpg"), cv2.COLOR_RGB2BGR)
+cv_mat = cv2.cvtColor(cv2.imread("pics/hand.jpg"), cv2.COLOR_BGR2RGB)
 
 # Перeводим его в формат Mediapipe-изображений
 image = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv_mat)
